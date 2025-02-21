@@ -1,12 +1,4 @@
-import os
-import json
-import boto3
-import streamlit as st
-from langchain.chains import LLMChain
-from langchain.chains import ConversationChain
-from langchain_community.chat_models import BedrockChat
-from langchain.memory import ConversationBufferMemory
-from langchain.prompts import PromptTemplate
+
 
 # AWS setup and credential check (unchanged)
 # ...
@@ -44,19 +36,13 @@ def create_llm(model_id):
     try:
 
         llm = BedrockChat(
-
             model_id=model_id,
-
             client=bedrock_client,
-
             model_kwargs={
 
                 "max_tokens": 1000,
-
                 "temperature": 1,
-
                 "top_k": 250,
-
                 "top_p": 1,
 
             }
@@ -72,14 +58,10 @@ def create_llm(model_id):
         st.error(f"Error creating LLM with model {model_id}: {str(e)}")
 
         return None
-
- 
-
+    
 # Initialize conversation memory
 
 memory = ConversationBufferMemory()
-
- 
 
 # Create the conversation chain
 
@@ -88,11 +70,8 @@ def create_conversation_chain(llm):
     if llm:
 
         conversation = ConversationChain(
-
             llm=llm,
-
             memory=memory,
-
             verbose=True
 
         )
@@ -121,11 +100,7 @@ def my_chatbot(model, language, freeform_text):
 
     )
 
- 
-
     bedrock_chain = LLMChain(llm=model, prompt=prompt)
-
- 
 
     try:
 
@@ -141,19 +116,12 @@ def my_chatbot(model, language, freeform_text):
 
         return None
 
- 
-
 st.title("Bode's Bedrock Chatbot App")
-
- 
 
 # Model selection
 
 selected_model_name = st.sidebar.selectbox("Select Model", list(MODEL_OPTIONS.keys()))
-
 selected_model_id = MODEL_OPTIONS[selected_model_name]
-
- 
 
 # Create LLM and conversation chain
 
@@ -161,15 +129,10 @@ llm = create_llm(selected_model_id)
 
 conversation = create_conversation_chain(llm)
 
- 
-
 language = st.sidebar.selectbox("Language", ["english", "spanish"])
 
 st.write(f"Selected model: {selected_model_name}")
-
 st.write(f"Selected language: {language}")
-
- 
 
 if language:
 
