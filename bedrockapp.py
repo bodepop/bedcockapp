@@ -8,22 +8,14 @@ from langchain_community.chat_models import BedrockChat
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import PromptTemplate
 
- 
-
 # AWS setup and credential check (unchanged)
-
 # ...
-
- 
-
 # Initialize Bedrock client
 
 try:
 
     bedrock_client = boto3.client(
-
         service_name="bedrock-runtime",
-
         region_name="us-east-1"
 
     )
@@ -34,32 +26,19 @@ except Exception as e:
 
     st.error(f"Error initializing Bedrock client: {str(e)}")
 
- 
-
 # Define model options
 
 MODEL_OPTIONS = {
 
     "Claude 3 Sonnet": "anthropic.claude-3-sonnet-20240229-v1:0",
-
     "Claude 2": "anthropic.claude-v2:1",
-
     "Claude 1": "anthropic.claude-3-5-sonnet-20240620-v1:0",
-
     "Claude 3 Haiku": "anthropic.claude-3-haiku-20240307-v1:0",
-
     "Claude 3.5 Sonnet v2": "manthropic.claude-3-5-sonnet-20241022-v2:0",
-
     "Claude 3 Opus": "anthropic.claude-3-opus-20240229-v1:0",
-
     "Claude Instant":"anthropic.claude-instant-v1"
 
- 
-
 }
-
- 
-
 def create_llm(model_id):
 
     try:
