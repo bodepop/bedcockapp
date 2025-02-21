@@ -1,4 +1,12 @@
-
+import os
+import json
+import boto3
+import streamlit as st
+from langchain.chains import LLMChain
+from langchain.chains import ConversationChain
+from langchain_community.chat_models import BedrockChat
+from langchain.memory import ConversationBufferMemory
+from langchain.prompts import PromptTemplate
 
 # AWS setup and credential check (unchanged)
 # ...
